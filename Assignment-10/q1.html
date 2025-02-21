@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUMBER GUESS</title>
+</head>
+<body>
+    <html>
+        <button type="button" onclick="game()">PLAY</button>
+    </html>
+    <script>
+        function game(){
+            let tn=Math.floor(Math.random()*50)+1;
+            while(true){
+                
+                let n=parseInt(prompt("Enter the number"));
+                if(tn==n){
+                    alert("Congratulations!!You guessed the number");
+                    break;
+                }
+                else{
+                    alert("Wrong guess!Try again");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

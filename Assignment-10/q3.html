@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Order Form</title>
+</head>
+<body>
+    <h3>PIZZA ORDER FORM</h3>
+    <form id="form">
+        <h4>PIZZA SIZE</h4>
+        <label>
+            <input type="radio" name="size" value="Small"> Small
+        </label>
+        <label>
+            <input type="radio" name="size" value="Medium"> Medium
+        </label>
+        <label>
+            <input type="radio" name="size" value="Large"> Large
+        </label>
+
+        <h4>PIZZA TOPPINGS</h4>
+        <label>
+            <input type="checkbox" name="Toppings" value="Cheese"> Cheese
+        </label>
+        <label>
+            <input type="checkbox" name="Toppings" value="Pepperoni"> Pepperoni
+        </label>
+        <label>
+            <input type="checkbox" name="Toppings" value="Mushrooms"> Mushrooms
+        </label>
+        <label>
+            <input type="checkbox" name="Toppings" value="Olives"> Olives
+        </label>
+        <br><br>
+        <button type="button" onclick="submitOrder()">SUBMIT</button>
+    </form>
+
+    <h3>Your Order Summary</h3>
+    <div id="orderSummary"></div>
+
+    <script>
+        function submitOrder() {
+            const size = document.querySelector('input[name="size"]:checked');
+            if (!size) {
+                alert("Please select a pizza size.");
+                return;
+            }
+            const toppings = [];
+            const top = document.querySelectorAll('input[name="Toppings"]:checked');
+            top.forEach(topp => {
+                toppings.push(topp.value);
+            });
+            const summary = `
+                <p><strong>Pizza Size:</strong> ${size.value}</p>
+                <p><strong>Toppings:</strong> ${toppings.length > 0 ? toppings.join(', ') : 'No toppings selected'}</p>
+            `;
+
+            document.getElementById("orderSummary").innerHTML = summary;
+        }
+    </script>
+</body>
+</html>

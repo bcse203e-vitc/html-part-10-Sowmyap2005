@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Drawing App</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        .control-item {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Drawing App</h1>
+
+    <canvas id="canvas" width="600" height="400"></canvas>
+
+    <div class="controls">
+        <div class="control-item">
+            <label for="color">Select Color:</label>
+            <input type="color" id="color" value="#000000">
+        </div>
+        <div class="control-item">
+            <label for="brushSize">Brush Size:</label>
+            <input type="range" id="brushSize" min="1" max="10" value="5">
+        </div>
+        <div class="control-item">
+            <button id="clearCanvas">Clear Canvas</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const colorPicker = document.getElementById("color");
+        const brushSize = document.getElementById("brushSize");
+        const clearButton = document.getElementById("clearCanvas");
+
+        let isDrawing = false;
+        ctx.lineWidth = brushSize.value;
+        ctx.strokeStyle = colorPicker.value;
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+        canvas.addEventListener("mousedown", (e) => {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener("mousemove", (e) => {
+            if (isDrawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener("mouseup", () => {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener("mouseout", () => {
+            isDrawing = false;
+        });
+        colorPicker.addEventListener("input", (e) => {
+            ctx.strokeStyle = e.target.value;
+        });
+        brushSize.addEventListener("input", (e) => {
+            ctx.lineWidth = e.target.value;
+        });
+        clearButton.addEventListener("click", () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    </script>
+
+</body>
+</html>

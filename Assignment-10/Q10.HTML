@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive To-Do List</title>
+    <style>
+        .todo-item {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .todo-item button {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive To-Do List</h1>
+
+    <input type="text" id="taskInput" placeholder="Add a new task" />
+    <button id="addTaskButton">Add</button>
+
+    <ul id="todoList"></ul>
+
+    <script>
+        const taskInput = document.getElementById("taskInput");
+        const addTaskButton = document.getElementById("addTaskButton");
+        const todoList = document.getElementById("todoList");
+
+        addTaskButton.addEventListener("click", function() {
+            const taskText = taskInput.value.trim();
+            
+            if (taskText !== "") {
+                const todoItem = document.createElement("li");
+                todoItem.classList.add("todo-item");
+                
+                const taskContent = document.createElement("span");
+                taskContent.textContent = taskText;
+                
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "Remove";
+                
+                removeButton.addEventListener("click", function() {
+                    todoItem.remove();
+                });
+
+                todoItem.appendChild(taskContent);
+                todoItem.appendChild(removeButton);
+                
+                todoList.appendChild(todoItem);
+
+                taskInput.value = "";
+            } else {
+                alert("Please enter a task.");
+            }
+        });
+
+        taskInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                addTaskButton.click();
+            }
+        });
+    </script>
+
+</body>
+</html>
